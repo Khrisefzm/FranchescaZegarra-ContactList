@@ -1,15 +1,24 @@
 import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import ContactBox from "../component/contactBox.jsx";
+import { Link } from "react-router-dom";
 
 export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
+	<>
+	<div className="d-grid gap-2 d-md-flex justify-content-md-end container p-0 mb-3">
+		<Link to="/Form">
+			<button className="btn btn-success" type="button">Add New Contact</button>
+		</Link>
 	</div>
+	<div className="container">
+		<ContactBox 
+			img="https://c-cl.cdn.smule.com/rs-s77/arr/10/c3/586c5b5a-1edf-4024-addb-7b4b3c90dd4a.jpg"
+			name="name1"
+			adress="adress1"
+			cellphone={9991235482}
+			email="email@gmail.com"
+		/>
+	</div>
+	</>
+	
 );
