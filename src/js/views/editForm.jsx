@@ -1,13 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export const ContactForm = () => {
+export const EditForm = () => {
+
+    const contacts = useSelector((store) => store.contact.value);
+    const id = useSelector(store => store.saveId.value);
+    
+    const contact = contacts.filter(contact => contact.id == id)
+    
     const [form, setForm] = useState({
-        full_name:"",
-        email:"",
-        phone: "",
-        address:""
+        full_name: contact.full_name,
+        email:contact.email,
+        phone: contact.phone,
+        address:contact.address
     });
 
     const changeInput = (e) => {
@@ -17,8 +24,8 @@ export const ContactForm = () => {
     
     const sentForm = (e) => {
         e.preventDefault();
-        fetch('https://assets.breatheco.de/apis/fake/contact/', {
-            method: "POST",
+        fetch(`https://assets.breatheco.de/apis/fake/contact/${contact[0].id}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -31,11 +38,11 @@ export const ContactForm = () => {
 
     return (
         <div className="container">
-            <h1 className="text-center"> Contact information </h1>
+            <h1 className="text-center"> Edit contact information </h1>
             <form onSubmit={sentForm}>
                 <div className="mb-3">
                     <label className="form-label">Full Name</label>
-                    <input type="text" className="form-control" name="full_name" onChange={changeInput}/>
+                    <input type="text" className="form-control" name="full_name" onChange={changeInput}  />
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Email</label>
@@ -43,11 +50,11 @@ export const ContactForm = () => {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Phone Number</label>
-                    <input type="number" className="form-control" name="phone" onChange={changeInput}/>
+                    <input type="number" className="form-control" name="phone" onChange={changeInput} />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Adress</label>
-                    <input type="text" className="form-control" name="address" onChange={changeInput}/>
+                    <label className="form-label">Address</label>
+                    <input type="text" className="form-control" name="address" onChange={changeInput} />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

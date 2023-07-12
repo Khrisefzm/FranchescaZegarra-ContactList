@@ -20,11 +20,11 @@ export const Home = () => {
 				{ contacts && contacts.map((element, key) =>{
 					return(
 						<ContactBox key={key}
-							img="https://c-cl.cdn.smule.com/rs-s77/arr/10/c3/586c5b5a-1edf-4024-addb-7b4b3c90dd4a.jpg"
 							name={element.full_name}
 							address={element.address}
 							phone={element.phone}
 							email={element.email}
+							id={element.id}
 						/>)
 					})
 				}

@@ -11,10 +11,6 @@ export const contactsSlice = createSlice({
         seeContact: (state, action) => {
             state.value.push(...action.payload);
         },
-
-        addContact: (state, action) => {
-            const {name, adress, phone, email} = action.payload;
-        }
     }
 })
 
