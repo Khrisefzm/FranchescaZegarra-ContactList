@@ -9,7 +9,7 @@ import "../styles/index.css";
 import Layout from './layout.js'
 
 //import redux
-import store from './store/store.js'
+import {store} from './store/store.js'
 import { Provider } from 'react-redux'
 
 //

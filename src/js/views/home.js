@@ -2,13 +2,20 @@ import React from "react";
 import "../../styles/home.css";
 import ContactBox from "../component/contactBox.jsx";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const Home = () => {
 	const contacts = useSelector((store) => store.contact.value);
 
 	console.log(contacts);
-	//const useDispatch = useDispatch()
+
+	let body = {
+		"full_name": "Dave Bradley",
+		"email": "dave@gmail.com",
+		"agenda_slug": "my_super_agenda",
+		"address":"47568 NW 34ST, 33434 FL, USA",
+		"phone":"7864445566"
+	}
 
 	return(
 		<>
@@ -24,7 +31,7 @@ export const Home = () => {
 							img="https://c-cl.cdn.smule.com/rs-s77/arr/10/c3/586c5b5a-1edf-4024-addb-7b4b3c90dd4a.jpg"
 							name={element.name}
 							adress={element.adress}
-							cellphone={element.cellphone}
+							phone={element.phone}
 							email={element.email}
 						/>)
 					})

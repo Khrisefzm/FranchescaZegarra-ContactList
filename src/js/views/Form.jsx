@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from "../store/Slice/contactsSlice";
+import { useDispatch } from 'react-redux';
 
 export const ContactForm = () => {
     const [form, setForm] = useState({
@@ -21,7 +22,7 @@ export const ContactForm = () => {
     const sentForm = (e) => {
         e.preventDefault();
         const newContact = form;
-        dispatch(newContact);
+        dispatch(addContact(newContact));
     }
 
     return (
@@ -37,7 +38,7 @@ export const ContactForm = () => {
                     <input type="email" className="form-control" name="email" onChange={changeInput}/>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Phone</label>
+                    <label className="form-label">Phone Number</label>
                     <input type="number" className="form-control" name="phone" onChange={changeInput}/>
                 </div>
                 <div className="mb-3">
