@@ -11,6 +11,9 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { seeContact } from "./store/Slice/contactsSlice";
 
 //create your first component
 const Layout = () => {
@@ -18,7 +21,19 @@ const Layout = () => {
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
 
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		fetch('https://assets.breatheco.de/apis/fake/contact/agenda/khrisefzm')
+		.then (response => {return response.json();})
+		.then (data => {dispatch(seeContact(data));
+		console.log(data)})
+		.catch (error => console.log(error))
+	}, [])
+	
+
 	return (
+
 		<div>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>

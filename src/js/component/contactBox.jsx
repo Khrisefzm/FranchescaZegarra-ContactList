@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ContactBox({img, name, adress, cellphone, email}) {
+export default function ContactBox({img, name, address, phone, email, id}) {
     return (
         <>
             <div className="row border p-3">
                 <div className="col-2">
-                    <img src={img} className="perfil-image" />
+                    <img src="https://c-cl.cdn.smule.com/rs-s77/arr/10/c3/586c5b5a-1edf-4024-addb-7b4b3c90dd4a.jpg" className="perfil-image" />
                 </div>
                 <div className="col">
                     <h3> {name} </h3>
-                    <p className="m-0 p-0 mt-1"> <i className="bi bi-geo-alt-fill"></i> {adress} </p>
-                    <p className="m-0 p-0 mt-1"> <i className="bi bi-telephone-fill"></i> {cellphone} </p>
-                    <p className="m-0 p-0 mt-1"> <i class="bi bi-envelope-fill"></i> {email} </p>
+                    <p className="m-0 p-0 mt-1"> <i className="bi bi-geo-alt-fill"></i> {address} </p>
+                    <p className="m-0 p-0 mt-1"> <i className="bi bi-telephone-fill"></i> {phone} </p>
+                    <p className="m-0 p-0 mt-1"> <i className="bi bi-envelope-fill"></i> {email} </p>
                 </div>
                 <div className="col-1">
                     <Link to="/Form" className="pencil">
@@ -25,7 +25,7 @@ export default function ContactBox({img, name, adress, cellphone, email}) {
                     </div> 
                 </div>
             </div>
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">

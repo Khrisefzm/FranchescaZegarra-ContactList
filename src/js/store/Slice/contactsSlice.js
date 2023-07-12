@@ -1,22 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: [{
-        name: 'name1',
-        adress: 'adress1',
-        phone: 9991235482,
-        email: 'email@gmail.com'
-    }],
+    value: [],
 }
 
 export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
     reducers:{
+        seeContact: (state, action) => {
+            state.value.push(...action.payload);
+        },
+
         addContact: (state, action) => {
-            state.value.push(action.payload);
+            const {name, adress, phone, email} = action.payload;
         }
     }
 })
 
-export const {addContact} = contactsSlice.actions;
+export const {seeContact, addContact} = contactsSlice.actions;
