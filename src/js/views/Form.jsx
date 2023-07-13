@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addContact } from "../store/Slice/contactsSlice";
 
 export const ContactForm = () => {
     const [form, setForm] = useState({
@@ -15,6 +17,8 @@ export const ContactForm = () => {
     }
     console.log(form);
     
+    const dispatch = useDispatch();
+
     const sentForm = (e) => {
         e.preventDefault();
         fetch('https://assets.breatheco.de/apis/fake/contact/', {
@@ -27,6 +31,8 @@ export const ContactForm = () => {
         .then(response => {return response.json();})
         .then(data => console.log(data))
         .catch(error => console.log(error))
+        
+        dispatch(addContact(form))
     }
 
     return (

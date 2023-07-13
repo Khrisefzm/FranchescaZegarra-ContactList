@@ -9,9 +9,13 @@ export const contactsSlice = createSlice({
     initialState,
     reducers:{
         seeContact: (state, action) => {
-            state.value.push(...action.payload);
+            state.value = action.payload;
         },
+        addContact: (state, action) => {
+            state.value.push(action.payload);
+        }
     }
+
 })
 
 export const {seeContact, addContact} = contactsSlice.actions;

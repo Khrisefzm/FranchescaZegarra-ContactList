@@ -29,7 +29,7 @@ export default function ContactBox({name, address, phone, email, id}) {
                     <p className="m-0 p-0 mt-1"> <i className="bi bi-envelope-fill"></i> {email} </p>
                 </div>
                 <div className="col-1">
-                    <Link to="/Edit" className="pencil" onClick={() => dispatch(contactId(id))}>
+                    <Link to={`/Edit/${id}`} className="pencil" >
                         <i className="bi bi-pencil-fill"></i>
                     </Link>
                 </div>

@@ -14,7 +14,7 @@ import { Footer } from "./component/footer";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { seeContact } from "./store/Slice/contactsSlice";
-import { EditForm } from "./views/editForm.jsx";
+import { EditForm } from "./views/EditForm.jsx";
 
 //create your first component
 const Layout = () => {
@@ -31,7 +31,6 @@ const Layout = () => {
 		console.log(data)})
 		.catch (error => console.log(error))
 	}, []);
-
 	
 
 	return (
@@ -43,7 +42,7 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/Form" element={<ContactForm />} />
-						<Route path="/Edit" element={<EditForm/>} />
+						<Route path="/Edit/:id" element={<EditForm/>} />
 						<Route path="/demo" element={<Demo/>} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />

@@ -1,14 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { seeContact } from "../store/Slice/contactsSlice";
 
 export const EditForm = () => {
 
+    const param = useParams();
     const contacts = useSelector((store) => store.contact.value);
-    const id = useSelector(store => store.saveId.value);
     
-    const contact = contacts.filter(contact => contact.id == id)
+    const contact = contacts.filter(contact => contact.id == param.id);
     
     const [form, setForm] = useState({
         full_name: contact.full_name,
@@ -22,9 +24,11 @@ export const EditForm = () => {
     }
     console.log(form);
     
+    const dispatch = useDispatch();
+
     const sentForm = (e) => {
         e.preventDefault();
-        fetch(`https://assets.breatheco.de/apis/fake/contact/${contact[0].id}`, {
+        fetch(`https://assets.breatheco.de/apis/fake/contact/${param.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -32,8 +36,19 @@ export const EditForm = () => {
             body: JSON.stringify({ ...form, agenda_slug: "khrisefzm"})
         })
         .then(response => {return response.json();})
-        .then(data => console.log(data))
-        .catch(error => console.log(error))
+        .then(data => {
+            console.log(data);
+            fetch('https://assets.breatheco.de/apis/fake/contact/agenda/khrisefzm')
+            .then (response => {return response.json();})
+            .then (data => {dispatch(seeContact(data));
+            console.log(data)})
+            .catch (error => console.log(error))
+        })
+        .catch(error => console.log(error));
+
+        //To return the route before
+        const navigate = useNavigate();
+        navigate("/");
     }
 
     return (
