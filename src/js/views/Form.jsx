@@ -1,37 +1,50 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { addContact } from "../store/Slice/contactsSlice";
-import { useDispatch } from 'react-redux';
 
 export const ContactForm = () => {
     const [form, setForm] = useState({
-        name:"",
+        full_name:"",
         email:"",
-        phone:0,
-        adress:""
+        phone: "",
+        address:""
     });
 
     const changeInput = (e) => {
         setForm({...form, [e.target.name]:e.target.value});
     }
-    console.log(form);
     
-    const dispatch = useDispatch()
-    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const sentForm = (e) => {
         e.preventDefault();
-        const newContact = form;
-        dispatch(addContact(newContact));
+        fetch('https://assets.breatheco.de/apis/fake/contact/', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...form, agenda_slug: "khrisefzm"})
+        })
+        .then(response => {
+            if (response.ok) {dispatch(addContact(form))}
+            return response.json();
+        })
+        .then(data => {console.log(data);})
+        .catch(error => console.log(error));
+
+        navigate("/"); //To go back
     }
 
     return (
         <div className="container">
             <h1 className="text-center"> Contact information </h1>
-            <form onSubmit={sentForm}>
+            <form onSubmit={sentForm} action="/">
                 <div className="mb-3">
                     <label className="form-label">Full Name</label>
-                    <input type="text" className="form-control" name="name" onChange={changeInput}/>
+                    <input type="text" className="form-control" name="full_name" onChange={changeInput}/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Email</label>
@@ -43,7 +56,7 @@ export const ContactForm = () => {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Adress</label>
-                    <input type="text" className="form-control" name="adress" onChange={changeInput}/>
+                    <input type="text" className="form-control" name="address" onChange={changeInput}/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
