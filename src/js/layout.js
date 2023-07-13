@@ -24,6 +24,27 @@ const Layout = () => {
 
 	const dispatch = useDispatch();
 
+	//create an agenda
+	/*useEffect(() => {
+		fetch('https://assets.breatheco.de/apis/fake/contact/', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: 	JSON.stringify({
+					full_name: "Dave Bradley",
+					email: "dave@gmail.com",
+					agenda_slug: "khrisefzm",
+					address:"47568 NW 34ST, 33434 FL, USA",
+					phone:"7864445566"
+			})
+        })
+        .then(response => {return response.json();})
+        .then(data => console.log(data))
+        .catch(error => console.log(error));	
+	}, [])*/
+	
+
 	useEffect(() => {
 		fetch('https://assets.breatheco.de/apis/fake/contact/agenda/khrisefzm')
 		.then (response => {return response.json();})

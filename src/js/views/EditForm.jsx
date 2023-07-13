@@ -25,6 +25,7 @@ export const EditForm = () => {
     console.log(form);
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const sentForm = (e) => {
         e.preventDefault();
@@ -47,7 +48,6 @@ export const EditForm = () => {
         .catch(error => console.log(error));
 
         //To return the route before
-        const navigate = useNavigate();
         navigate("/");
     }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../store/Slice/contactsSlice";
@@ -18,6 +18,7 @@ export const ContactForm = () => {
     console.log(form);
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const sentForm = (e) => {
         e.preventDefault();
@@ -28,17 +29,22 @@ export const ContactForm = () => {
             },
             body: JSON.stringify({ ...form, agenda_slug: "khrisefzm"})
         })
-        .then(response => {return response.json();})
-        .then(data => console.log(data))
-        .catch(error => console.log(error))
-        
-        dispatch(addContact(form))
+        .then(response => {
+            if (response.ok) {dispatch(addContact(form))}
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.log(error));
+
+        navigate("/"); //To go back
     }
 
     return (
         <div className="container">
             <h1 className="text-center"> Contact information </h1>
-            <form onSubmit={sentForm}>
+            <form onSubmit={sentForm} action="/">
                 <div className="mb-3">
                     <label className="form-label">Full Name</label>
                     <input type="text" className="form-control" name="full_name" onChange={changeInput}/>
