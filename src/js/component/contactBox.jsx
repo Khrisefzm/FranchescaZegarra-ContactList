@@ -1,19 +1,24 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { seeContact } from "../store/Slice/contactsSlice";
 
 export default function ContactBox({name, address, phone, email, id}) {
 
+    const contacts = useSelector((store) => store.contact.value);
+
     const dispatch = useDispatch();
 
     function deleteContact(id) {
+
         fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
         })
         .then (response => {return response.json()})
         .then (data => console.log(data))
         .catch (error => console.log(error));
+        let newContacts= contacts.filter(contact => contact.id!=id)
+        dispatch(seeContact(newContacts));
         navigate("/");
     }
     
@@ -37,12 +42,12 @@ export default function ContactBox({name, address, phone, email, id}) {
                     </Link>
                 </div>
                 <div className="col-1">
-                    <div type="button" className="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => console.log(id)} >
+                    <div type="button" className="btn" data-bs-toggle="modal" data-bs-target={`#modal${id}`} >
                         <i className="bi bi-trash-fill"></i>
                     </div> 
                 </div>
             </div>
-            <div className="modal fade" tabIndex="-1" aria-labelledby="exampleModalLabel" id="exampleModal" aria-hidden="true">
+            <div className="modal fade" tabIndex="-1" aria-labelledby="exampleModalLabel" id={`modal${id}`} aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -54,7 +59,7 @@ export default function ContactBox({name, address, phone, email, id}) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=>navigate("/")} >Oh no!</button>
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{console.log(id); deleteContact(id);}}>Yes baby!</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{deleteContact(id);}}>Yes baby!</button>
                         </div>
                     </div>
                 </div>

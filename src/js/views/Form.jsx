@@ -15,7 +15,6 @@ export const ContactForm = () => {
     const changeInput = (e) => {
         setForm({...form, [e.target.name]:e.target.value});
     }
-    console.log(form);
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -33,9 +32,7 @@ export const ContactForm = () => {
             if (response.ok) {dispatch(addContact(form))}
             return response.json();
         })
-        .then(data => {
-            console.log(data);
-        })
+        .then(data => {console.log(data);})
         .catch(error => console.log(error));
 
         navigate("/"); //To go back

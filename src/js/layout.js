@@ -48,8 +48,7 @@ const Layout = () => {
 	useEffect(() => {
 		fetch('https://assets.breatheco.de/apis/fake/contact/agenda/khrisefzm')
 		.then (response => {return response.json();})
-		.then (data => {dispatch(seeContact(data));
-		console.log(data)})
+		.then (data => {dispatch(seeContact(data));})
 		.catch (error => console.log(error))
 	}, []);
 	
